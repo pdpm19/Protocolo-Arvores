@@ -8,7 +8,6 @@ Original file is located at
 """
 
 # 1
-import os
 from sklearn import tree
 from sklearn.datasets import load_iris
 import matplotlib.pyplot as plt
@@ -33,9 +32,7 @@ clf = clf.fit(x_train, y_train)
 
 predict = clf.predict(x_test)
 
-mae = metrics.mean_absolute_error(y_test, predict)
-
-print('MAE: %f' %(mae))
+print("Accuracy:", metrics.accuracy_score(y_test, predict))
 
 # 3
 from sklearn import tree, metrics
@@ -48,7 +45,7 @@ y_values = []
 
 def ReadCSV():
   global x_values, y_values
-  file_path = os.path.join(os.getcwd(),'content', 'pizza.csv') 
+  file_path = "/content/pizza.csv"
   base = pd.read_csv(file_path)
   
   x_values = base.iloc[:,0].values
@@ -61,12 +58,12 @@ def Regression():
   global x_values, y_values
 
   x_train, x_test, y_train, y_test = train_test_split(x_values, y_values, test_size=0.3, random_state=0)
+  # Mexer no max_depth
   regressor = tree.DecisionTreeRegressor()
   regressor.fit(x_train, y_train)
 
   predict = regressor.predict(x_test)
   mae = metrics.mean_absolute_error(y_test, predict)
-
   print('MAE: %f' %(mae))
   plt.scatter(x_values, y_values)
   plt.plot(x_test, predict, color='red')
@@ -89,7 +86,7 @@ y_values = []
 
 def ReadCSV():
   global x_values, y_values
-  file_path = file_path = os.path.join(os.getcwd(),'content', 'pizza.csv')
+  file_path = "/content/pizza.csv"
   base = pd.read_csv(file_path)
   
   x_values = base.iloc[:,0].values
@@ -103,7 +100,7 @@ def DecisionTreeRegression():
 
   x_train, x_test, y_train, y_test = train_test_split(x_values, y_values, test_size=0.3, random_state=0)
   # Mexer no max_depth
-  regressor = tree.DecisionTreeRegressor(max_depth=3)
+  regressor = tree.DecisionTreeRegressor(max_depth=5)
   regressor.fit(x_train, y_train)
 
   predict = regressor.predict(x_test)
